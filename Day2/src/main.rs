@@ -13,11 +13,11 @@ fn main() {
         let mut oppNum = 0;
         let mut myNum = 0;
         match myChar {
-            'X' => {total+=1;
+            'X' => {total+=0;
                     myNum = 0;},
-            'Y' => {total+=2;
+            'Y' => {total+=3;
                     myNum = 1},
-            'Z' => {total+=3;
+            'Z' => {total+=6;
                     myNum = 2},
             _ => total+=0
         }
@@ -28,18 +28,25 @@ fn main() {
             'C' => oppNum = 2,
             _ => oppNum = 0
         }
+
+        let resultArr = [[1, 0, 2],
+                                        [2, 1, 0],
+                                        [0, 2, 1]];
         
-        let resultArr = [["tie", "me", "opp"],
-                                        ["opp", "tie", "me"],
-                                        ["me", "opp", "tie"]];
-        
-        match resultArr[oppNum][myNum] {
-            "tie" => total+=3,
-            "me" => total+=6,
-            _ => total+=0
+        if myChar == 'Y' {
+            myNum = oppNum;
+        } else if myChar == 'Z'{
+            myNum = resultArr[oppNum].iter().position(|&i| i == 0).unwrap_or(0);
+        }else{
+            myNum = resultArr[oppNum].iter().position(|&i| i == 2).unwrap_or(0);
         }
 
-
+        match myNum {
+            0 => total+=1,
+            1 => total+=2,
+            2 => total+=3,
+            _ => total+=0
+        }
 
     }
 
